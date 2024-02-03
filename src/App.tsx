@@ -4,19 +4,15 @@ import Todos from './components/Todos'
 import Todo from './models/todo';
 
 function App() {
-  const todos = [
-      new Todo('Learn React'),
-      new Todo('Learn Typescript')
-    ];
-
-  const [ todosList, setTodosList] = useState<Todo[]>([
-    ...todos
-  ]);
+  const [ todosList, setTodosList] = useState<Todo[]>([]);
 
   // const items = [
   //   'Learn React',
   //   'Learn Typescript'
   // ]
+  function handleRemoveItem(id: string){
+    setTodosList( (prevTodos) => prevTodos.filter(todo => todo.id != id));
+  }
 
   function handleAddTodo(text: string){
     const newTodo = new Todo(text);
@@ -27,7 +23,7 @@ function App() {
     <>
       <div>
         <NewTodo onAddTodo={handleAddTodo} />
-        <Todos items={todosList}></Todos>
+        <Todos items={todosList} onRemoveItem={handleRemoveItem}></Todos>
       </div>
     </>
   )

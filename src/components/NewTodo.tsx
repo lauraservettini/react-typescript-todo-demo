@@ -1,8 +1,10 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { TodosContext } from "../store/todos-context";
 
 import classes from './NewTodo.module.css';
 
-const NewTodo: React.FC<{onAddTodo: (text: string) => void}>= (props) => {
+const NewTodo: React.FC = () => {
+    const ctx = useContext(TodosContext);
     const todoText= useRef<HTMLInputElement>(null);
 
     function handleSubmit(event: React.FormEvent) {
@@ -13,7 +15,7 @@ const NewTodo: React.FC<{onAddTodo: (text: string) => void}>= (props) => {
             throw new Error('Insert a valid value');
         }
 
-        props.onAddTodo(enteredText);
+        ctx.addTodo(enteredText);
     }
 
     return <form  className={classes.form} onSubmit={handleSubmit}>
